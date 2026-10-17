@@ -1,7 +1,3 @@
 <?php
-
-header("Location: product_list.php");
-
+header('Location: app/');
 exit;
-
-?>
