@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bài 2 - Đặt vé xem phim</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="../lib/vue.global.prod.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main id="app" class="shell exercise-shell" v-cloak>
+    <nav class="top-nav" aria-label="Điều hướng bài tập"><a href="../index.html">← Mục lục</a><span>Bài 02 / 03</span></nav>
+    <header class="page-head"><span class="eyebrow">RẠP CHIẾU PHIM</span><h1>Đặt vé xem phim</h1><p>Chọn suất chiếu và loại vé, tổng tiền sẽ cập nhật ngay.</p></header>
+    <div class="booking-layout">
+      <form class="panel booking-form" @submit.prevent="submitBooking" novalidate>
+        <div class="section-heading"><span class="section-kicker">THÔNG TIN ĐẶT VÉ</span><h2>Vé của bạn</h2></div>
+        <label class="field"><span>Họ tên khách hàng <span class="required">*</span></span><input type="text" v-model.trim="name" autocomplete="name" placeholder="Nhập họ và tên" :aria-invalid="name.length === 0 ? 'true' : 'false'" required></label>
+        <label class="field"><span>Suất chiếu</span><select v-model="showtime"><option v-for="show in showtimes" :key="show" :value="show">{{ show }}</option></select></label>
+        <fieldset class="field radio-field"><legend>Loại vé</legend><div class="choice-row"><label class="choice" :class="{ selected: ticketType === 'standard' }"><input type="radio" value="standard" v-model="ticketType"><span>Vé thường<small>70.000 đ / vé</small></span></label><label class="choice" :class="{ selected: ticketType === 'vip' }"><input type="radio" value="vip" v-model="ticketType"><span>Vé VIP<small>100.000 đ / vé</small></span></label></div></fieldset>
+        <div class="field"><label for="quantity">Số lượng vé <span class="required">*</span></label><div class="quantity-control"><button type="button" @click="decreaseQuantity" :disabled="!Number.isInteger(quantity) || quantity <= 1" aria-label="Giảm số lượng vé">−</button><input id="quantity" type="number" min="1" max="10" step="1" v-model.number="quantity" :aria-invalid="!validQuantity ? 'true' : 'false'"><button type="button" @click="increaseQuantity" :disabled="!Number.isInteger(quantity) || quantity >= 10" aria-label="Tăng số lượng vé">+</button></div><small class="field-help">Chọn từ 1 đến 10 vé.</small><small v-if="!validQuantity" class="error-text" role="alert">Số lượng phải là số nguyên từ 1 đến 10.</small></div>
+        <label class="combo-choice"><input type="checkbox" v-model="withCombo"><span><strong>Combo bắp nước</strong><small>Thêm 45.000 đ cho mỗi đơn đặt vé</small></span><b>+45.000 đ</b></label>
+        <div class="form-actions"><button class="button button-secondary" type="button" @click="resetForm">Đặt lại</button><button class="button button-primary" type="submit" :disabled="!canBook">Đặt vé</button></div>
+      </form>
+      <aside class="panel summary-panel"><span class="section-kicker">TÓM TẮT ĐƠN HÀNG</span><h2>Chi tiết thanh toán</h2><div class="receipt-line"><span>Giá vé</span><strong>{{ money(ticketPrice) }}</strong></div><div class="receipt-line"><span>Số lượng</span><strong>{{ validQuantity ? quantity : '—' }}</strong></div><div class="receipt-line"><span>Combo bắp nước</span><strong>{{ money(comboPrice) }}</strong></div><div class="receipt-total"><span>Tổng tiền</span><strong>{{ money(total) }}</strong></div><p class="summary-note">Ví dụ: 2 vé VIP và một combo = 245.000 đ.</p><div v-if="confirmation" class="confirmation" role="status" aria-live="polite"><strong>Đặt vé thành công</strong><p>{{ confirmation.name }} · {{ confirmation.showtime }}</p><p>{{ confirmation.quantity }} vé {{ confirmation.ticketLabel }}{{ confirmation.withCombo ? ' · Có combo' : '' }}</p><b>Tổng: {{ money(confirmation.total) }}</b></div></aside>
+    </div>
+  </main>
+</body>
+</html>

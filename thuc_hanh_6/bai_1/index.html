@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bài 1 - Thẻ sinh viên</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="../lib/vue.global.prod.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main id="app" class="shell exercise-shell" v-cloak>
+    <nav class="top-nav" aria-label="Điều hướng bài tập"><a href="../index.html">← Mục lục</a><span>Bài 01 / 03</span></nav>
+    <header class="page-head"><span class="eyebrow">HỒ SƠ SINH VIÊN</span><h1>Thẻ thông tin sinh viên</h1><p>Dữ liệu trên thẻ được cập nhật trực tiếp bằng Vue.</p></header>
+    <section class="student-layout">
+      <article class="panel student-card" aria-label="Thông tin sinh viên">
+        <div class="student-banner"><span class="banner-mark">STUDENT PROFILE</span></div>
+        <div class="student-body">
+          <img class="avatar" :src="student.avatar" :alt="student.avatarAlt" width="104" height="104">
+          <div class="student-title"><span class="muted-label">{{ student.id }}</span><h2>{{ student.name }}</h2><p v-text="student.className"></p></div>
+          <div class="student-details"><div><span>Điểm trung bình</span><strong>{{ formattedGpa }}</strong></div><div><span>Xếp loại</span><strong class="grade" :class="gradeClass">{{ gradeLabel }}</strong></div><div><span>Trạng thái</span><strong v-if="student.isStudying" class="status-active">Đang học</strong><strong v-else class="status-inactive">Đã nghỉ</strong></div></div>
+          <button class="button button-secondary intro-button" type="button" @click="showIntro = !showIntro" :aria-expanded="String(showIntro)">{{ showIntro ? 'Ẩn giới thiệu' : 'Xem giới thiệu' }}</button>
+          <p class="intro" v-show="showIntro">{{ student.introduction }}</p>
+        </div>
+      </article>
+      <aside class="panel info-panel"><span class="section-kicker">BÀI 1</span><h2>Nội dung thực hành</h2><p>Thẻ dùng nội suy, <code>v-text</code>, <code>v-bind</code>, điều kiện hiển thị và lớp CSS động. Có thể sửa dữ liệu trong <code>bai_1/app.js</code> để thấy giao diện tự cập nhật.</p><div class="code-hint"><span>Thử thay đổi</span><strong>Điểm trung bình · trạng thái học</strong></div></aside>
+    </section>
+  </main>
+</body>
+</html>

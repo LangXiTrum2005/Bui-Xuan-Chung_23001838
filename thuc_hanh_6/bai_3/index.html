@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bài 3 - Quản lý công việc</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="../lib/vue.global.prod.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main id="app" class="shell exercise-shell" v-cloak>
+    <nav class="top-nav" aria-label="Điều hướng bài tập"><a href="../index.html">← Mục lục</a><span>Bài 03 / 03</span></nav>
+    <header class="page-head"><span class="eyebrow">KẾ HOẠCH HÔM NAY</span><h1>Quản lý công việc</h1><p>Giữ danh sách việc cần làm rõ ràng và luôn cập nhật.</p></header>
+    <section class="panel todo-panel"><form class="add-task" @submit.prevent="addTask"><label class="sr-only" for="new-task">Tên công việc mới</label><input id="new-task" type="text" v-model.trim="newTask" placeholder="Việc bạn cần làm hôm nay..."><button class="button button-primary" type="submit" :disabled="!newTask.trim()">Thêm việc</button></form><div class="task-overview"><div><strong>{{ totalTasks }}</strong><span>Tổng công việc</span></div><div><strong>{{ remainingTasks }}</strong><span>Chưa hoàn thành</span></div></div><div class="task-toolbar"><div class="filter-group" aria-label="Lọc công việc"><button v-for="option in filters" :key="option.value" type="button" :class="{ active: filter === option.value }" :aria-pressed="String(filter === option.value)" @click="filter = option.value">{{ option.label }}</button></div><button class="clear-button" type="button" @click="clearCompleted" :disabled="completedTasks === 0">Xóa các việc đã hoàn thành</button></div><ul v-if="filteredTasks.length" class="task-list"><li v-for="task in filteredTasks" :key="task.id" class="task-item"><label><input type="checkbox" v-model="task.completed"><span :class="{ completed: task.completed }">{{ task.name }}</span></label><button type="button" class="delete-button" @click="deleteTask(task.id)" :aria-label="'Xóa công việc ' + task.name">Xóa</button></li></ul><p v-else class="empty-state">{{ tasks.length === 0 ? 'Chưa có công việc nào. Hãy thêm việc đầu tiên.' : 'Không có công việc nào phù hợp với bộ lọc này.' }}</p></section>
+  </main>
+</body>
+</html>

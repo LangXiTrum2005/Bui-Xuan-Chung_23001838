@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title">
+  <title id="title">Ảnh đại diện sinh viên</title>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#d5effa"/><stop offset="1" stop-color="#bce2d9"/></linearGradient></defs>
+  <rect width="160" height="160" rx="80" fill="url(#bg)"/>
+  <circle cx="80" cy="65" r="29" fill="#e9b98e"/>
+  <path d="M49 64c1-22 12-37 32-37 19 0 33 15 31 37-8-5-13-15-16-20-13 11-29 17-47 20Z" fill="#253d50"/>
+  <path d="M33 151c1-33 16-48 47-48 32 0 47 15 48 48" fill="#277c93"/>
+  <path d="M64 107l16 17 16-17" fill="#fff"/>
+</svg>
